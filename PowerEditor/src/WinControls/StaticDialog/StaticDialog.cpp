@@ -111,6 +111,13 @@ void StaticDialog::display(bool toShow, bool enhancedPositioningCheckWhenShowing
 {
 	if (toShow)
 	{
+		if (const auto style = ::GetWindowLongPtr(_hSelf, GWL_STYLE); (style & WS_MAXIMIZE))
+		{
+			// show dialog maximized
+			::ShowWindow(_hSelf, SW_SHOWMAXIMIZED);
+			return;
+		}
+
 		if (enhancedPositioningCheckWhenShowing)
 		{
 			RECT testPositionRc{}, candidateRc{};
